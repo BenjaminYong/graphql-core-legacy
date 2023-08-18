@@ -268,7 +268,7 @@ def _print_description(definition, indentation="", first_in_block=True):
     else:
         description = indentation + '"""'
 
-    if len(lines) == 1 and len(lines[0]) < 70 and lines[0][-1] != '"':
+    if len(lines) == 1 and len(lines[0]) < 70 and len(lines[0]) > 0 and lines[0][-1] != '"':
         return description + _escape_quote(lines[0]) + '"""\n'
 
     has_leading_space = not lines[0] or lines[0][0] in " \t"
@@ -286,7 +286,10 @@ def _print_description(definition, indentation="", first_in_block=True):
 
 def _description_lines(description, max_len):
     lines = []
-    raw_lines = description.split("\n")
+    if type(description) == str:
+        raw_lines = description.split("\n")
+    else:
+        raw_lines = description().split("\n")
     for line in raw_lines:
         if line == "":
             lines.append(line)
