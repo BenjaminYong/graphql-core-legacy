@@ -276,10 +276,12 @@ def _print_description(definition, indentation="", first_in_block=True):
         description += "\n"
 
     for idx, line in enumerate(lines):
-        if idx != 0 or not has_leading_space:
-            description += indentation
-
-        description += _escape_quote(line) + "\n"
+        # NOTE: This original code adds new lines for line breaks which causes JSON parsing issues.
+        # if idx != 0 or not has_leading_space:
+        #     description += indentation
+        # description += _escape_quote(line) + "\n"
+        
+        description += _escape_quote(line)
 
     return description + indentation + '"""\n'
 
